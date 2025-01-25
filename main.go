@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/go-struct/node"
+	"github.com/go-struct/saver"
+	"github.com/go-struct/todo"
 )
 
 func main() {
@@ -18,6 +20,12 @@ func main() {
 	}
 	userNode.Display()
 	userNode.SaveToFile()
+	text := getUserInput("Please enter what you want to do: ")
+	userTodo, error := todo.New(text)
+	if error != nil {
+		fmt.Println(error)
+	}
+	save(userTodo)
 
 }
 
@@ -37,4 +45,8 @@ func getUserInput(hint string) string {
 	text = strings.TrimSuffix(text, "\n")
 	text = strings.TrimSuffix(text, "\r")
 	return text
+}
+
+func save(data saver.Saver) {
+	data.SaveToFile()
 }

@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/go-struct/embed"
 	"github.com/go-struct/node"
 	"github.com/go-struct/saver"
 	"github.com/go-struct/todo"
@@ -18,8 +19,9 @@ func main() {
 		fmt.Println(error)
 		return
 	}
-	userNode.Display()
-	userNode.SaveToFile()
+	//userNode.Display()
+	//userNode.SaveToFile()
+	play(userNode)
 	text := getUserInput("Please enter what you want to do: ")
 	userTodo, error := todo.New(text)
 	if error != nil {
@@ -48,5 +50,10 @@ func getUserInput(hint string) string {
 }
 
 func save(data saver.Saver) {
+	data.SaveToFile()
+}
+
+func play(data embed.Embed) {
+	data.Display()
 	data.SaveToFile()
 }

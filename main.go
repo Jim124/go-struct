@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-struct/embed"
 	"github.com/go-struct/node"
+	"github.com/go-struct/print"
 	"github.com/go-struct/saver"
 	"github.com/go-struct/todo"
 )
@@ -28,6 +29,14 @@ func main() {
 		fmt.Println(error)
 	}
 	save(userTodo)
+
+	// print something
+	print.Print(1)
+	print.Print(1.0)
+	print.Print("hello")
+	print.Print(userNode)
+	print.PrintWithType(1)
+	print.PrintWithType(true)
 
 }
 

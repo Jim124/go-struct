@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/go-struct/array"
 	"github.com/go-struct/embed"
 	"github.com/go-struct/node"
 	"github.com/go-struct/print"
@@ -37,6 +38,7 @@ func main() {
 	print.Print(userNode)
 	print.PrintWithType(1)
 	print.PrintWithType(true)
+	array.TestArray()
 
 }
 

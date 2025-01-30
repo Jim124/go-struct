@@ -13,6 +13,7 @@ func TestArray() {
 	fmt.Println(hobbies)
 	fmt.Println(hobbies[0])
 	fmt.Println(hobbies[1:])
+	fmt.Println(hobbies[1:3])
 	hobbiesSLice := hobbies[:2]
 	hobbiesSLice = hobbies[0:2]
 	hobbiesSLice = hobbies[1:]

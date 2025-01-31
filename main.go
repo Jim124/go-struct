@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-struct/array"
 	"github.com/go-struct/embed"
+	"github.com/go-struct/funcVal"
 	"github.com/go-struct/make"
 	"github.com/go-struct/map_tutorial"
 	"github.com/go-struct/print"
@@ -42,6 +43,7 @@ func main() {
 	map_tutorial.TestMap()
 	make.TestMakeSLice()
 	make.TestMakeMap()
+	funcVal.TestFuncVal()
 
 }
 

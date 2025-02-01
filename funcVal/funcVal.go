@@ -10,6 +10,12 @@ func TestFuncVal() {
 	fmt.Println(doubleAges)
 	tripleAge := getTransformVal(ages, getTriple)
 	fmt.Println(tripleAge)
+	// anonymous method
+	fourthAge := getTransformVal(ages, func(number int) int { return number * 4 })
+	fmt.Println(fourthAge)
+	createTransformFunc := createTransformFunc(5)
+	sixthAge := getTransformVal(ages, createTransformFunc)
+	fmt.Println(sixthAge)
 }
 
 func getTransformVal(ages []int, transform transformFunc) []int {
@@ -25,4 +31,11 @@ func getDouble(age int) int {
 }
 func getTriple(age int) int {
 	return age * 3
+}
+
+// closure method
+func createTransformFunc(factor int) func(int) int {
+	return func(number int) int {
+		return number * factor
+	}
 }

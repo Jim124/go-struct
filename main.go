@@ -12,7 +12,9 @@ import (
 	"github.com/go-struct/make"
 	"github.com/go-struct/map_tutorial"
 	"github.com/go-struct/print"
+	"github.com/go-struct/recursion"
 	"github.com/go-struct/saver"
+	"github.com/go-struct/sum"
 )
 
 func main() {
@@ -44,6 +46,9 @@ func main() {
 	make.TestMakeSLice()
 	make.TestMakeMap()
 	funcVal.TestFuncVal()
+	numbers := recursion.Factorial(5)
+	fmt.Println(numbers)
+	sum.TestSum()
 
 }
 

@@ -11,7 +11,9 @@ import (
 	"github.com/go-struct/funcVal"
 	"github.com/go-struct/make"
 	"github.com/go-struct/map_tutorial"
+	"github.com/go-struct/price"
 	"github.com/go-struct/print"
+	"github.com/go-struct/project"
 	"github.com/go-struct/recursion"
 	"github.com/go-struct/saver"
 	"github.com/go-struct/sum"
@@ -49,6 +51,10 @@ func main() {
 	numbers := recursion.Factorial(5)
 	fmt.Println(numbers)
 	sum.TestSum()
+	project.Test()
+	job := price.NewTaxIncludePrice(0.23)
+	job.LoadData()
+	job.Process()
 
 }
 

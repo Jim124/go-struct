@@ -53,7 +53,7 @@ func main() {
 	sum.TestSum()
 	project.Test()
 	job := price.NewTaxIncludePrice(0.23)
-	job.LoadData()
+	// job.LoadData()
 	job.Process()
 
 }

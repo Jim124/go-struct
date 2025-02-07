@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-struct/array"
 	"github.com/go-struct/embed"
+	"github.com/go-struct/fileManage"
 	"github.com/go-struct/funcVal"
 	"github.com/go-struct/make"
 	"github.com/go-struct/map_tutorial"
@@ -52,9 +53,13 @@ func main() {
 	fmt.Println(numbers)
 	sum.TestSum()
 	project.Test()
-	job := price.NewTaxIncludePrice(0.23)
-	// job.LoadData()
-	job.Process()
+	taxRates := []float64{0.12, 0.23, 0.56}
+	for _, taxRate := range taxRates {
+		// cmd := cmdManage.New()
+		fm := fileManage.New("prices.txt", fmt.Sprintf("result-%.1f.json", taxRate))
+		taxIncludePrice := price.NewTaxIncludePrice(fm, taxRate)
+		taxIncludePrice.Process()
+	}
 
 }
 

@@ -7,8 +7,13 @@ import (
 	"os"
 )
 
-func LoadData(path string) ([]string, error) {
-	file, error := os.Open(path)
+type FileManage struct {
+	inputPath  string
+	outputPath string
+}
+
+func (fm *FileManage) ReadLine() ([]string, error) {
+	file, error := os.Open(fm.inputPath)
 	if error != nil {
 		return nil, errors.New("could not open the file")
 	}
@@ -25,8 +30,8 @@ func LoadData(path string) ([]string, error) {
 	return lines, nil
 }
 
-func WriteToFile(path string, data any) error {
-	file, error := os.Create(path)
+func (fm *FileManage) WriteResult(data any) error {
+	file, error := os.Create(fm.outputPath)
 	if error != nil {
 		return error
 	}
@@ -38,4 +43,11 @@ func WriteToFile(path string, data any) error {
 	}
 	return nil
 
+}
+
+func New(inputPath, outputPath string) *FileManage {
+	return &FileManage{
+		inputPath:  inputPath,
+		outputPath: outputPath,
+	}
 }

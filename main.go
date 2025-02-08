@@ -58,7 +58,10 @@ func main() {
 		// cmd := cmdManage.New()
 		fm := fileManage.New("prices.txt", fmt.Sprintf("result-%.1f.json", taxRate))
 		taxIncludePrice := price.NewTaxIncludePrice(fm, taxRate)
-		taxIncludePrice.Process()
+		error := taxIncludePrice.Process()
+		if error != nil {
+			fmt.Println(error)
+		}
 	}
 
 }

@@ -8,10 +8,10 @@ import (
 
 	"github.com/go-struct/array"
 	"github.com/go-struct/embed"
+	"github.com/go-struct/fileManage"
 	"github.com/go-struct/funcVal"
-	"github.com/go-struct/make"
 	"github.com/go-struct/map_tutorial"
-	"github.com/go-struct/oneChan"
+	"github.com/go-struct/price"
 	"github.com/go-struct/print"
 	"github.com/go-struct/project"
 	"github.com/go-struct/recursion"
@@ -45,26 +45,32 @@ func main() {
 	print.PrintWithType(true)
 	array.TestArray()
 	map_tutorial.TestMap()
-	make.TestMakeSLice()
-	make.TestMakeMap()
+	//make.TestMakeSLice()
+	//make.TestMakeMap()
 	funcVal.TestFuncVal()
 	numbers := recursion.Factorial(5)
 	fmt.Println(numbers)
 	sum.TestSum()
 	project.Test()
-	// taxRates := []float64{0.12, 0.23, 0.56}
-	// for _, taxRate := range taxRates {
-	// 	// cmd := cmdManage.New()
-	// 	fm := fileManage.New("prices.txt", fmt.Sprintf("result-%.1f.json", taxRate))
-	// 	taxIncludePrice := price.NewTaxIncludePrice(fm, taxRate)
-	// 	error := taxIncludePrice.Process()
-	// 	if error != nil {
-	// 		fmt.Println(error)
-	// 	}
-	// }
+
+	taxRates := []float64{0.12, 0.23, 0.56}
+	doneChans := make([]chan bool, len(taxRates))
+	for index, taxRate := range taxRates {
+		// cmd := cmdManage.New()
+		doneChans[index] = make(chan bool)
+		fm := fileManage.New("prices.txt", fmt.Sprintf("result-%.1f.json", taxRate))
+		taxIncludePrice := price.NewTaxIncludePrice(fm, taxRate)
+		go taxIncludePrice.Process(doneChans[index])
+		// if error != nil {
+		// 	fmt.Println(error)
+		// }
+	}
+	for index := range doneChans {
+		<-doneChans[index]
+	}
 	// concurrency.Test()
 	// multipleChan.TestMultipleChan()
-	oneChan.TestOneChan()
+	//oneChan.TestOneChan()
 
 }
 

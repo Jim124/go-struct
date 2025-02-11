@@ -2,6 +2,7 @@ package price
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-struct/conversation"
 	"github.com/go-struct/ioManage"
@@ -35,18 +36,20 @@ func (job *TaxIncludePrice) LoadData() error {
 	return nil
 }
 
-func (job *TaxIncludePrice) Process() error {
+func (job *TaxIncludePrice) Process(doneChan chan bool) {
 	error := job.LoadData()
 	if error != nil {
-		return error
+		//return error
 	}
 	result := make(map[string]string)
 	for _, price := range job.Prices {
 		priceStr := fmt.Sprintf("%.2f", price*(1+job.TaxRate))
 		result[fmt.Sprintf("%.2f", price)] = priceStr
 	}
-
+	time.Sleep(3 * time.Second)
 	// fmt.Println(result)
 	job.TaxInclude = result
-	return job.ioManager.WriteResult(job)
+	//return job.ioManager.WriteResult(job)
+	job.ioManager.WriteResult(job)
+	doneChan <- true
 }

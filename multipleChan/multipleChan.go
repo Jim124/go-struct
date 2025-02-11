@@ -27,8 +27,8 @@ func TestMultipleChan() {
 	dones[3] = make(chan bool)
 	go greet("I hope you're liking the course!", dones[3])
 
-	for _, done := range dones {
-		<-done
+	for index := range dones {
+		<-dones[index]
 	}
 
 }

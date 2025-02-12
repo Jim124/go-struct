@@ -55,18 +55,30 @@ func main() {
 
 	taxRates := []float64{0.12, 0.23, 0.56}
 	doneChans := make([]chan bool, len(taxRates))
+	errorChans := make([]chan error, len(taxRates))
 	for index, taxRate := range taxRates {
 		// cmd := cmdManage.New()
 		doneChans[index] = make(chan bool)
+		errorChans[index] = make(chan error)
 		fm := fileManage.New("prices.txt", fmt.Sprintf("result-%.1f.json", taxRate))
 		taxIncludePrice := price.NewTaxIncludePrice(fm, taxRate)
-		go taxIncludePrice.Process(doneChans[index])
+		go taxIncludePrice.Process(doneChans[index], errorChans[index])
 		// if error != nil {
 		// 	fmt.Println(error)
 		// }
 	}
-	for index := range doneChans {
-		<-doneChans[index]
+	// for index := range doneChans {
+	// 	<-doneChans[index]
+	// }
+	for index := range taxRates {
+		select {
+		case err := <-errorChans[index]:
+			fmt.Println(err)
+		case done := <-doneChans[index]:
+
+			fmt.Println(done)
+		}
+
 	}
 	// concurrency.Test()
 	// multipleChan.TestMultipleChan()

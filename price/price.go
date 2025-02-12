@@ -36,9 +36,11 @@ func (job *TaxIncludePrice) LoadData() error {
 	return nil
 }
 
-func (job *TaxIncludePrice) Process(doneChan chan bool) {
+func (job *TaxIncludePrice) Process(doneChan chan bool, err chan error) {
 	error := job.LoadData()
 	if error != nil {
+		err <- error
+		return
 		//return error
 	}
 	result := make(map[string]string)
